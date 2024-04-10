@@ -26,7 +26,7 @@ async def root():
 @app.get("/bandwidth")
 async def receive_bandwidth():
     if bandwidth.error != True:
-        return {"upload": bandwidth.upload, "download": bandwidth.download, "ping":bandwidth.ping}
+        return {"upload": bandwidth.upload, "download": bandwidth.download, "ping":bandwidth.ping, "time":bandwidth.time}
     else:
         return {"Error": "Bandwidth has not been uploaded yet"}
     #speed = get_network_speed()
