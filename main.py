@@ -1,11 +1,13 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from datetime import datetime
 
 class Item(BaseModel): # class for storing bandwidth
     error: bool
     upload: float
     download: float
     ping: float
+    time: str
 
 
 app = FastAPI()
@@ -44,4 +46,5 @@ async def upload_bandwidth(item: Item):
         bandwidth.upload = item_dict["upload"]
         bandwidth.download = item_dict["download"]
         bandwidth.ping = item_dict["ping"]
+        bandwidth.time = item_dict["time"]
     return item_dict

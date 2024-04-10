@@ -18,9 +18,6 @@ def get_network_speed():
 
     return {"error": error,"upload" : up_speed, "download": down_speed, "ping":ping}
 
-joe = get_network_speed()
-
-print(joe)
 
 
     
