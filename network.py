@@ -7,6 +7,7 @@ def get_network_speed():
     error = False
     down_speed=0
     up_speed=0
+    ping = 0
     try:
         
         down_speed = st.download()
@@ -18,6 +19,7 @@ def get_network_speed():
 
     return {"error": error,"upload" : up_speed, "download": down_speed, "ping":ping}
 
+test = get_network_speed()
 
 
     
