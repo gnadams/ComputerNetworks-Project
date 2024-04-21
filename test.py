@@ -15,4 +15,4 @@ json_data = json.dumps(body)
 
 
 
-r = requests.post("http://127.0.0.1:8000/"+"upload", data=json_data)
+r = requests.post(STATIC_URL+"upload", data=json_data)
