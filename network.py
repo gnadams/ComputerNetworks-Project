@@ -19,7 +19,8 @@ def get_network_speed():
 
     return {"error": error,"upload" : up_speed, "download": down_speed, "ping":ping}
 
-test = get_network_speed()
+if __name__ == "__main__":
+    test = get_network_speed()
 
 
     

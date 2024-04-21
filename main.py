@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 from datetime import datetime
 
@@ -18,10 +19,11 @@ bandwidth.upload = 0
 bandwidth.download = 0
 bandwidth.ping = 0
 
+templates = Jinja2Templates(directory="templates")
 
 @app.get("/")
-async def root():
-    return {"message":"Hello World"}
+async def name(request: Request):
+    return templates.TemplateResponse("home.html", {"request": request, "bandwidth": bandwidth})
 
 @app.get("/bandwidth")
 async def receive_bandwidth():
@@ -43,8 +45,10 @@ async def upload_bandwidth(item: Item):
     item_dict = item.dict()
     if item_dict["error"] != True:
         bandwidth.error = False
-        bandwidth.upload = item_dict["upload"]
-        bandwidth.download = item_dict["download"]
+        bandwidth.upload = float(item_dict["upload"])
+        bandwidth.download = float(item_dict["download"])
+        bandwidth.upload = round(bandwidth.upload, 1)
+        bandwidth.download = round(bandwidth.download, 1)
         bandwidth.ping = item_dict["ping"]
         bandwidth.time = item_dict["time"]
     return item_dict
