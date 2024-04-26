@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
-from .sql_app import crud, models, schemas
-from .sql_app.database import SessionLocal, engine
+from sql_app import crud, models, schemas
+from sql_app.database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 
