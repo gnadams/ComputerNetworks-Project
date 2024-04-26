@@ -1,16 +1,27 @@
 from pydantic import BaseModel
 
-
-class ItemBase(BaseModel): # class for storing bandwidth
-    error: bool
+class BandBase(BaseModel):
+    date: str
     upload: float
-    download: float
-    time: str
-    
+    download : float
+    ping: float
 
-class Item(ItemBase):
-   id: int
-   class Config:
-      orm_mode = True
+#class BandCreate(BandBase):
+#    ping: float
 
 
+class Band(BandBase):
+    id: int
+    error: bool
+
+    class Config:
+        orm_mode = True
+
+"""
+class BandDict(BandBase):
+    error: bool
+    download : float
+    date: str
+    id: int
+    upload: float
+"""
