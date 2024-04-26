@@ -1,23 +1,31 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Depends, HTTPException
 from fastapi.templating import Jinja2Templates
-from pydantic import BaseModel
 from datetime import datetime
 
-class Item(BaseModel): # class for storing bandwidth
-    error: bool
-    upload: float
-    download: float
-    ping: float
-    time: str
+from sqlalchemy.orm import Session
+from Sql_app import models, schemas, crud
+from Sql_app.database import SessionLocal, engine
 
+
+
+
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-bandwidth = Item
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+bandwidth = schemas.ItemBase
 bandwidth.error = True
 bandwidth.upload = 0
 bandwidth.download = 0
-bandwidth.ping = 0
+bandwidth.time = ""
+
 
 templates = Jinja2Templates(directory="templates")
 
@@ -40,15 +48,17 @@ async def receive_bandwidth():
 
 
 
-@app.post("/upload")
-async def upload_bandwidth(item: Item):
+@app.post("/upload") #, response_model=schemas.ItemBase
+async def upload_bandwidth(item: schemas.ItemBase, db: Session = Depends(get_db)):
     item_dict = item.dict()
+    bandwidth1 = schemas.ItemBase
     if item_dict["error"] != True:
-        bandwidth.error = False
-        bandwidth.upload = float(item_dict["upload"])
-        bandwidth.download = float(item_dict["download"])
-        bandwidth.upload = round(bandwidth.upload, 1)
-        bandwidth.download = round(bandwidth.download, 1)
-        bandwidth.ping = item_dict["ping"]
-        bandwidth.time = item_dict["time"]
+        bandwidth1.error = False
+        bandwidth1.upload = float(item_dict["upload"])
+        bandwidth1.download = float(item_dict["download"])
+        bandwidth1.upload = round(bandwidth1.upload, 1)
+        bandwidth1.download = round(bandwidth1.download, 1)
+        bandwidth1.time = item_dict["time"]
+        return(crud.create_bw(db, bandwidth1))
     return item_dict
+
