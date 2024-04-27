@@ -54,7 +54,7 @@
 
 <script>
     async function requestRecent1(){
-        var response = await fetch('https://computernetworks-project.onrender.com//recent/');
+        var response = await fetch('https://computernetworks-project.onrender.com/recent/');
         var data = await response.json();
         console.log(data);
         document.getElementById("upload-speed").textContent = data.upload;
