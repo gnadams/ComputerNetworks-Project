@@ -40,8 +40,8 @@ def count_bw_Probably_Dont_Need(db: Session = Depends(get_db)):
     return crud.get_num_data(db)
 
 @app.get("/recentBandwidths/", response_model=list[schemas.Band]) #delete response_model if errors.
-def Gather_Entries_Start_to_End(start: int, end:int, db: Session = Depends(get_db)):
-    db_user = crud.get_bw(db, skip=start, limit=end)
+def Gather_Bandwidth_For_Limit(Limit:int, db: Session = Depends(get_db)):
+    db_user = crud.get_bw(db, limit=Limit)
     if db_user is None:
         raise HTTPException(status_code=404, detail="No Entries yet")
     return db_user

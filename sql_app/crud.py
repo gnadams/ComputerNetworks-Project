@@ -9,7 +9,7 @@ def get_recent(db: Session):
 def get_num_data(db: Session):
     return db.query(models.Band).count()
 
-def get_bw(db: Session, skip: int = 0, limit: int = 20): # can probably get rid of the lmit & skip
+def get_bw(db: Session, limit: int = 20): # can probably get rid of the lmit & skip
     return db.query(models.Band).order_by(models.Band.id.desc()).limit(limit).all()
     #return db.query(models.Band).offset(skip).limit(limit).all() OLD
 
