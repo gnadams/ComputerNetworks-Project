@@ -22,7 +22,8 @@ def create_bw(db: Session, user: schemas.Band): #schemas.BandCreate):
     if (Upload == 0 and Download == 0):
         Error = True
 
-    time_now = datetime.now(timezone.utc).strftime("%m/%d/%Y, %H:%M:%S")
+    time_now = datetime.now(timezone.utc) - timedelta(hours=5)
+    time_now = time_now.strftime("%m/%d/%Y, %H:%M:%S")
     db_user = models.Band(date=time_now, upload=Upload, download=Download, error=Error, ping=Ping)
     db.add(db_user)
     db.commit()

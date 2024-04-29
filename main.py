@@ -24,7 +24,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/", response_class=HTMLResponse) #Home
 async def name(request: Request, db: Session = Depends(get_db)):
-    return templates.TemplateResponse("home.html", context={"request":request, "bandwidth": read_latest_value(db), "bandwidthTuple" : Gather_Entries_Start_to_End(0,20,db)})
+    return templates.TemplateResponse("home.html", context={"request":request, "bandwidth": read_latest_value(db)})
 
 @app.post("/upload/", response_model=schemas.Band)
 def create_bandwidth(user: schemas.Band, db: Session = Depends(get_db)):
