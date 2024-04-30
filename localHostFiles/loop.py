@@ -43,7 +43,7 @@ def main():
         } 
         json_data = json.dumps(body)
         # API POST REQUEST TO 
-        r = requests.post(LOCAL_URL+"upload", data=json_data)
+        r = requests.post(GLOBAL_URL+"upload", data=json_data)
         time.sleep(STALL_DURATION)
         count = count + 1
 
