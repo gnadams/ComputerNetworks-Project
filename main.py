@@ -55,7 +55,6 @@ def create_bandwidth(user: schemas.Band, db: Session = Depends(get_db)):
 def read_latest_value(db: Session = Depends(get_db)):
     return crud.get_recent(db)
 
-# 
 # Returns the X amount of most recent objects
 # EX: Limit = 25: 
 # return the 25 most recent values
