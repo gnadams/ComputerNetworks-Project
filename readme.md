@@ -9,8 +9,7 @@ See https://computernetworks-project.onrender.com/docs for api documentation
 
 
 ## Purpose
-The goal is to have my local host send the bandwidth data to the api via a post request
-
+The goal is to have my local host periodically gather the bandwidth of my home internet, and then upload it to the cloud via a POST request.
 
 ## Project Layout
 ### SQLite
